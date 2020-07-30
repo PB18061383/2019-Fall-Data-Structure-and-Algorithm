@@ -1,0 +1,47 @@
+//Dijktra²âÊÔÎÄ¼ş 
+#include<stdio.h>
+#include<stdlib.h>
+#include<limits.h>
+#include"GRAPHMATRIX.h" 
+#include"DIJKSTRA.h"
+main(){
+	Graph *g;
+	VexType v1,v2;
+	ShPath p[VEXSIZE][VEXSIZE];
+	InitGraph(g);
+	g->vexnum=6;
+	g->vex[0].id=0;
+	g->vex[0].used=1;
+	g->vex[1].id=1;
+	g->vex[1].used=1;
+	g->vex[2].id=2;
+	g->vex[2].used=1;
+	g->vex[3].id=3;
+	g->vex[3].used=1;
+	g->vex[4].id=4;
+	g->vex[4].used=1;
+	g->vex[5].id=5;
+	g->vex[5].used=1;
+	g->arcnum=8;
+	g->arc[0][2].data=10;
+	g->arc[0][2].used=1;
+	g->arc[0][4].data=30;
+	g->arc[0][4].used=1;
+	g->arc[0][5].data=100;
+	g->arc[0][5].used=1;
+	g->arc[1][2].data=5;
+	g->arc[1][2].used=1;
+	g->arc[2][3].data=50;
+	g->arc[2][3].used=1;
+	g->arc[3][5].data=10;
+	g->arc[3][5].used=1;
+	g->arc[4][3].data=20;
+	g->arc[4][3].used=1;
+	g->arc[4][5].data=60;
+	g->arc[4][5].used=1;
+	v1=g->vex[0];
+	v2=g->vex[5];
+	Dijkstra(g,p);
+	TraverseDij(g,v1,v2,p);
+	DestroyGraph(g);
+}

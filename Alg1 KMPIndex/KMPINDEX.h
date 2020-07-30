@@ -1,0 +1,76 @@
+#ifndef __KMPINDEX_H
+#define __KMPINDEX_H
+//这是基于堆式串的KMP算法。 
+//由于赶工繁忙，可能有些许bug，对此本人深感抱歉。如有建设性建议，可通过QQ：1345578933联系（麻治昊，20191110于中国科学技术大学）
+#include<stdio.h>
+#include<stdlib.h>
+#include"STRINGHEAP.h"
+//函数内容 
+int Next(String *&s,int next[],int i){
+	//构建s的next数组，i为0常规，i为1优化，成功返回0，i不合法返回1 
+	int flag1,flag2;
+	flag1=0;
+	flag2=-1; 
+	next[0]=-1;
+	if(i==0){
+		while(flag1<s->length){
+			if(flag2==-1||s->str[flag1]==s->str[flag2]){
+				flag1++;
+				flag2++;
+				next[flag1]=flag2;
+			}
+			else{
+				flag2=next[flag2];
+			}
+		}
+		return(0); 
+	}
+	if(i==1){
+		flag1=0;
+		flag2=-1; 
+		next[0]=-1;
+		while(flag1<s->length){
+			if(flag2==-1||s->str[flag1]==s->str[flag2]){
+				flag1++;
+				flag2++;
+				if(s->str[flag1]!=s->str[flag2]){
+					next[flag1]=flag2;
+				}
+				else{
+					next[flag1]=next[flag2];
+				}
+			}
+			else{
+				flag2=next[flag2];
+			}
+		}
+		return(0);
+	}
+	return(1); 
+}
+int KMPIndex(String *&s,String *&t,int i,int j){
+	//用KMP算法，返回s中i位置后第一个含t的子串位置,没有就返回0，i不合法返回-1，对于next求法，j为0为0常规，j为1优化 
+	int flag1,flag2,next[t->length];
+	Next(t,next,j);
+	if(i<1||i>s->length-t->length+1){
+		return(-1);
+	}
+	flag1=i-1;
+	flag2=0;
+	while(flag1<s->length&&flag2<t->length){
+		if(flag2==-1||s->str[flag1]==t->str[flag2]){
+			flag1++;
+			flag2++;
+		}
+		else{
+			flag2=next[flag2];
+		}
+	}
+	if(flag2==t->length){
+		return(flag1-flag2+1);
+	}
+	else{
+		return(0);
+	}
+}
+#endif

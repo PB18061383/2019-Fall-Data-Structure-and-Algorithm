@@ -1,0 +1,69 @@
+//Prim²âÊÔÎÄ¼ş 
+#include<stdio.h>
+#include<stdlib.h>
+#include"GRAPHMATRIX.h" 
+#include"PRIM.h"
+main(){
+	Graph *g;
+	VexType v;
+	ClosEdge cls[VEXSIZE];
+	InitGraph(g);
+	g->vexnum=5;
+	g->vex[0].id=1;
+	g->vex[0].used=1;
+	g->vex[1].id=2;
+	g->vex[1].used=1;
+	g->vex[2].id=3;
+	g->vex[2].used=1;
+	g->vex[3].id=4;
+	g->vex[3].used=1;
+	g->vex[4].id=5;
+	g->vex[4].used=1;
+	g->vex[5].id=6;
+	g->vex[5].used=1;
+	g->arcnum=20;
+	g->arc[0][1].data=6;
+	g->arc[0][1].used=1;
+	g->arc[0][2].data=1;
+	g->arc[0][2].used=1;
+	g->arc[0][3].data=5;
+	g->arc[0][3].used=1;
+	g->arc[1][0].data=6;
+	g->arc[1][0].used=1;
+	g->arc[1][2].data=5;
+	g->arc[1][2].used=1;
+	g->arc[1][4].data=3;
+	g->arc[1][4].used=1;
+	g->arc[2][0].data=1;
+	g->arc[2][0].used=1;
+	g->arc[2][1].data=5;
+	g->arc[2][1].used=1;
+	g->arc[2][3].data=5;
+	g->arc[2][3].used=1;
+	g->arc[2][4].data=6;
+	g->arc[2][4].used=1;
+	g->arc[2][5].data=4;
+	g->arc[2][5].used=1;
+	g->arc[3][0].data=5;
+	g->arc[3][0].used=1;
+	g->arc[3][2].data=5;
+	g->arc[3][2].used=1;
+	g->arc[3][5].data=2;
+	g->arc[3][5].used=1;
+	g->arc[4][1].data=3;
+	g->arc[4][1].used=1;
+	g->arc[4][2].data=6;
+	g->arc[4][2].used=1;
+	g->arc[4][5].data=6;
+	g->arc[4][5].used=1;
+	g->arc[5][2].data=4;
+	g->arc[5][2].used=1;
+	g->arc[5][3].data=2;
+	g->arc[5][3].used=1;
+	g->arc[5][4].data=6;
+	g->arc[5][4].used=1;
+	v=g->vex[0];
+	Prim(g,v,cls);
+	TraverseCls(g,cls);
+	DestroyGraph(g);
+}
